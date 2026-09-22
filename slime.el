@@ -136,7 +136,7 @@ CONTRIBS is a list of contrib packages to load. If `nil', use
 (defun slime-lisp-mode-hook ()
   (slime-mode 1)
   (set (make-local-variable 'lisp-indent-function)
-       'common-lisp-indent-function))
+       'slime-common-lisp-indent-function))
 
 (defvar slime-protocol-version nil)
 (setq slime-protocol-version slime-version)
@@ -7113,20 +7113,20 @@ Only considers buffers that are not already visible."
   "Update Lisp indent information.
 
 ALIST is a list of (SYMBOL-NAME . INDENT-SPEC) of proposed indentation
-settings for `common-lisp-indent-function'. The appropriate property
+settings for `slime-common-lisp-indent-function'. The appropriate property
 is setup, unless the user already set one explicitly."
   (dolist (info alist)
     (let ((symbol (intern (car info)))
           (indent (slime-intern-indentation-spec (cl-second info)))
           (packages (cl-third info)))
-      (if (and (boundp 'common-lisp-system-indentation)
+      (if (and (boundp 'slime-common-lisp-system-indentation)
                (fboundp 'slime-update-system-indentation))
           ;; A table provided by slime-cl-indent.el.
           (funcall #'slime-update-system-indentation symbol indent packages)
         ;; Does the symbol have an indentation value that we set?
-        (when (equal (get symbol 'common-lisp-indent-function)
+        (when (equal (get symbol 'slime-common-lisp-indent-function)
                      (get symbol 'slime-indent))
-          (put symbol 'common-lisp-indent-function indent)
+          (put symbol 'slime-common-lisp-indent-function indent)
           (put symbol 'slime-indent indent)))
       (run-hook-with-args 'slime-indentation-update-hooks
                           symbol indent packages))))
