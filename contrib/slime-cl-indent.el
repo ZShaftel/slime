@@ -1970,6 +1970,7 @@ Cause subsequent clauses to be indented.")
         (unless (symbolp name)
           (error "Cannot set Common Lisp indentation of a non-symbol: %s"
                  name))
+
         (put name 'slime-common-lisp-indent-function indentation)))))
 (slime-lisp-init-standard-indentation)
 
