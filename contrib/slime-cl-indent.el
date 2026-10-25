@@ -47,6 +47,147 @@
   "Indentation in Lisp."
   :group 'lisp)
 
+(defconst slime-lisp-indent-old-functions-alist
+  '((common-lisp-style-name . slime-common-lisp-style-name)
+    (common-lisp-style-inherits . slime-common-lisp-style-inherits)
+    (common-lisp-style-variables . slime-common-lisp-style-variables)
+    (common-lisp-style-indentation . slime-common-lisp-style-indentation)
+    (common-lisp-style-hook . slime-common-lisp-style-hook)
+    (common-lisp-style-docstring . slime-common-lisp-style-docstring)
+    (common-lisp-make-style . slime-common-lisp-make-style)
+    (common-lisp-delete-style . slime-common-lisp-delete-style)
+    (common-lisp-find-style . slime-common-lisp-find-style)
+    (common-lisp-safe-style-p . slime-common-lisp-safe-style-p)
+    (common-lisp-add-style . slime-common-lisp-add-style)
+    (common-lisp-activate-style . slime-common-lisp-activate-style)
+    (common-lisp-active-style-methods . slime-lisp-active-style-methods)
+    (common-lisp-style-names . slime-common-lisp-style-names)
+    (common-lisp-set-style . slime-common-lisp-set-style)
+    (common-lisp-lisp-mode-hook . slime-common-lisp-lisp-mode-hook)
+    (common-lisp-guess-current-package . slime-common-lisp-guess-current-package)
+    (common-lisp-symbol-package . slime-common-lisp-symbol-package)
+    (common-lisp-get-indentation . slime-lisp-get-indentation)
+    (common-lisp-loop-type . slime-lisp-loop-type)
+    (common-lisp-trailing-comment . slime-lisp-trailing-comment)
+    (common-lisp-indent-function . slime-common-lisp-indent-function)
+    (common-lisp-looking-back . slime-lisp-looking-back)
+    (common-lisp-looking-at-keyword . slime-lisp-looking-at-keyword)
+    (common-lisp-backward-keyword-argument . slime-lisp-backward-keyword-argument)
+    (common-lisp-indent-function-1 . slime-common-lisp-indent-function-1)
+    (common-lisp-normal-indent . slime-lisp-normal-indent)
+    (common-lisp-backward-comment-or-sexp . slime-lisp-backward-comment-or-sexp)
+    (common-lisp-indent-call-method . slime-lisp-indent-call-method)
+    (lisp-indent-report-bad-format . slime-lisp-indent-report-bad-format)
+    (lisp-indent-lambda-list . slime-lisp-indent-lambda-list)
+    (lisp-properly-indent-lambda-list . slime-lisp-properly-indent-lambda-list)
+    (common-lisp-lambda-list-initial-value-form-p
+     . slime-lisp-lambda-list-initial-value-form-p)
+    (lisp-indent-259 . slime-lisp-indent-259)
+    (lisp-indent-tagbody . slime-lisp-indent-tagbody)
+    (lisp-indent-do . slime-lisp-indent-do)
+    (lisp-indent-defsetf . slime-lisp-indent-defsetf)
+    (lisp-beginning-of-defmethod-qualifiers
+     . slime-lisp-beginning-of-defmethod-qualifiers)
+    (lisp-indent-defmethod . slime-lisp-indent-defmethod)
+    (lisp-indent-function-lambda-hack . slime-lisp-indent-function-lambda-hack)
+    (lisp-indent-loop . slime-lisp-indent-loop)
+    (common-lisp-indent-parse-state-depth . slime-lisp-indent-parse-state-depth)
+    (common-lisp-indent-parse-state-start . slime-lisp-indent-parse-state-start)
+    (common-lisp-indent-parse-state-prev . slime-lisp-indent-parse-state-prev)
+    (common-lisp-loop-part-indentation . slime-lisp-loop-part-indentation)
+    (common-lisp-indent-loop-macro-1 . slime-lisp-indent-loop-macro-1)
+    (common-lisp-loop-advance-past-keyword-on-line
+     . slime-lisp-loop-advance-past-keyword-on-line)
+    (common-lisp-indent-if* . slime-lisp-indent-if*)
+    (common-lisp-indent-if*-1 . slime-lisp-indent-if*-1)
+    (common-lisp-indent-if*-advance-past-keyword-on-line
+     . slime-lisp-indent-if*-advance-past-keyword-on-line)
+    (common-lisp-init-standard-indentation . slime-lisp-init-standard-indentation))
+  "An alist mapping old function names to the new `slime-' prefixed ones.")
+
+(defconst slime-lisp-indent-old-variables-alist
+  '((lisp-indent-maximum-backtracking . slime-lisp-indent-maximum-backtracking)
+    (lisp-tag-indentation . slime-lisp-tag-indentation)
+    (lisp-tag-body-indentation . slime-lisp-tag-body-indentation)
+    (lisp-backquote-indentation . slime-lisp-backquote-indentation)
+    (lisp-indent-apparent-data . slime-lisp-indent-apparent-data)
+    (lisp-loop-indent-subclauses . slime-lisp-loop-indent-subclauses)
+    (lisp-simple-loop-indentation . slime-lisp-simple-loop-indentation)
+    (lisp-loop-clauses-indentation . slime-lisp-loop-clauses-indentation)
+    (lisp-loop-indent-body-forms-relative-to-loop-start
+     . slime-lisp-loop-indent-body-forms-relative-to-loop-start)
+    (lisp-loop-body-forms-indentation . slime-lisp-loop-body-forms-indentation)
+    (lisp-loop-indent-forms-like-keywords . slime-lisp-loop-indent-forms-like-keywords)
+    (lisp-align-keywords-in-calls . slime-lisp-align-keywords-in-calls)
+    (lisp-lambda-list-indentation . slime-lisp-lambda-list-indentation)
+    (lisp-lambda-list-keyword-alignment . slime-lisp-lambda-list-keyword-alignment)
+    (lisp-lambda-list-keyword-parameter-indentation
+     . slime-lisp-lambda-list-keyword-parameter-indentation)
+    (lisp-lambda-list-keyword-parameter-alignment
+     . slime-lisp-lambda-list-keyword-parameter-alignment)
+    (lisp-indent-defun-method . slime-lisp-indent-defun-method)
+    (common-lisp-styles . slime-common-lisp-styles)
+    (common-lisp-active-style . slime-common-lisp-active-style)
+    (common-lisp-set-style-history . slime-common-lisp-set-style-history)
+    (common-lisp-style-default . slime-common-lisp-style-default)
+    (common-lisp-system-indentation . slime-common-lisp-system-indentation)
+    (common-lisp-current-package-function
+     . slime-common-lisp-current-package-function)
+    (common-lisp-feature-expr-regexp . slime-lisp-feature-expr-regexp)
+    (lisp-indent-error-function . slime-lisp-indent-error-function)
+    (lisp-indent-lambda-list-keywords-regexp
+     . slime-lisp-indent-lambda-list-keywords-regexp)
+    (lisp-indent-lambda-list-single-arg-keywords-regexp
+     . slime-lisp-indent-lambda-list-single-arg-keywords-regexp)
+    (common-lisp-body-introducing-loop-macro-keyword
+     . slime-lisp-body-introducing-loop-macro-keyword)
+    (common-lisp-accumlation-loop-macro-keyword
+     . slime-lisp-accumlation-loop-macro-keyword)
+    (common-lisp-prefix-loop-macro-keyword . slime-lisp-prefix-loop-macro-keyword)
+    (common-lisp-indent-clause-joining-loop-macro-keyword
+     . slime-lisp-indent-clause-joining-loop-macro-keyword)
+    (common-lisp-indent-indented-loop-macro-keyword
+     . slime-lisp-indent-indented-loop-macro-keyword)
+    (common-lisp-indenting-loop-macro-keyword
+     . slime-lisp-indenting-loop-macro-keyword)
+    (common-lisp-loop-macro-else-keyword . slime-lisp-loop-macro-else-keyword)
+    (common-lisp-indent-if*-keyword . slime-lisp-indent-if*-keyword))
+  "An alist mapping old variable names to the new `slime-' prefixed ones.")
+
+(define-minor-mode slime-lisp-indent-compatibility-mode
+  "Enable backward compatibility with the old slime-cl-indent.
+This aliases all functions and variables in slime-cl-indent.el to their
+old [common-]lisp- prefixed names, shadowing some definitions in the
+built-in cl-indent.el. This mode is on by default, so to prevent
+activating it you can customize the variable or put
+  (setopt slime-lisp-indent-compatibility-mode nil)
+in your init file before Slime loads."
+  :global t
+  :init-value t
+  (require 'cl-indent)
+  (dolist (pair slime-lisp-indent-old-functions-alist)
+    (if slime-lisp-indent-compatibility-mode
+        (advice-add (car pair) :override (cdr pair)
+                    '((name . slime-lisp-indent-compatibility-mode)))
+      (advice-remove (car pair) (cdr pair))))
+  (dolist (pair slime-lisp-indent-old-variables-alist)
+    (cond ((eq (indirect-variable (car pair)) (cdr pair))
+           (unless slime-lisp-indent-compatibility-mode
+             (let ((oldv (get (car pair) 'slime--saved-value)))
+               (makunbound (car pair))
+               (when oldv
+                 (set-default (car pair) (car oldv))
+                 (put (car pair) 'slime--saved-value nil)))))
+          (slime-lisp-indent-compatibility-mode
+           (put (car pair) 'slime--saved-value
+                (and (default-boundp (car pair))
+                     (list (default-value (car pair)))))
+           (makunbound (car pair))
+           (defvaralias (car pair) (cdr pair))))))
+
+(when slime-lisp-indent-compatibility-mode
+  (slime-lisp-indent-compatibility-mode))
+
 (defcustom slime-lisp-indent-maximum-backtracking 6
   "Maximum depth to backtrack out from a sublist for structured indentation.
 If this variable is 0, no backtracking will occur and forms such as `flet'
@@ -770,18 +911,6 @@ For example, the function `case' has an indent property
     of them.  The first list element has an offset of 2, all the rest
     have an offset of 2+1=3."
   (slime-common-lisp-indent-function-1 indent-point state))
-
-(define-minor-mode slime-lisp-indent-compatibility-mode
-  "Enable backward compatibility with the old slime-cl-indent.
-This aliases `slime-common-lisp-indent-function' to
-`common-lisp-indent-function', shadowing the builtin definition in
-cl-indent.el."
-  :global t
-  (if slime-lisp-indent-compatibility-mode
-      (advice-add 'common-lisp-indent-function
-                  :override #'slime-common-lisp-indent-function)
-    (advice-remove 'common-lisp-indent-function
-                   #'slime-common-lisp-indent-function)))
 
 ;;; XEmacs doesn't have looking-back, so we define a simple one. Faster to
 ;;; boot, and sufficient for our needs.
